@@ -13,15 +13,6 @@ public class Ladrao : MonoBehaviour
     [SerializeField]
     protected LadraoType _type;
 
-    private const float FREQUENCY = 8f;
-    private const float AMPLITUDE = 150f;
-    private float _faseChange = 0;
-    private float _timer = 0;
-    private float _perpendicular = 0;
-
-
-
-
     public Rigidbody GetRigidbody => _rigidbody ? _rigidbody : _rigidbody = gameObject.GetComponent<Rigidbody>();
     public Vector3 GetDirection { get => _direction.normalized; set { _direction = value.normalized; } }
 
@@ -40,9 +31,6 @@ public class Ladrao : MonoBehaviour
                 //That's all folks
                 break;
             case LadraoType.USUAL:
-                _timer += Time.fixedDeltaTime;
-                _perpendicular = AMPLITUDE * Mathf.Cos(_timer * FREQUENCY + _faseChange);
-                GetDirection = ((Vector2)GetDirection + Vector2.Perpendicular(GetDirection) * _perpendicular).normalized;
                 break;
             case LadraoType.ASTUTO:
                 break;

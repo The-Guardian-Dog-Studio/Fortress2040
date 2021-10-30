@@ -44,7 +44,7 @@ public class MainChar : MonoBehaviour
     virtual protected void Update()
     {
         GetRigidbody.MovePosition(GetRigidbody.position + transform.TransformDirection(GetDirection * Time.fixedDeltaTime * _speed));
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -90, 90), Mathf.Clamp(transform.position.y, -50, 0), Mathf.Clamp(transform.position.y, -50, 0));
     }
 
     public void OnEnable()
