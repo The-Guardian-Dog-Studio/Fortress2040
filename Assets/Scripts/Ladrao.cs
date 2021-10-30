@@ -7,9 +7,12 @@ public class Ladrao : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     [SerializeField]
-    protected float _speed;
+    protected float _speed = 7.5f;
     [SerializeField]
     protected Vector3 _direction;
+    [SerializeField]
+    protected LadraoType _type;
+
 
 
     public Rigidbody GetRigidbody => _rigidbody ? _rigidbody : _rigidbody = gameObject.GetComponent<Rigidbody>();
@@ -37,4 +40,9 @@ public class Ladrao : MonoBehaviour
         _direction = _direction.normalized;
     }
 #endif
+}
+
+public enum LadraoType : short
+{
+    BOBO, USUAL, ASTUTO
 }
