@@ -25,6 +25,22 @@ public class @MC : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Trap"",
+                    ""type"": ""Button"",
+                    ""id"": ""887d9ae7-4653-4c65-b8bc-f39777c99b3f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Vaia"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb141b90-4398-4bb6-83fc-73df25bef6f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -93,6 +109,72 @@ public class @MC : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5bc8124-ebca-4352-8ed5-b3df60945cc3"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1829960-4c60-476c-bccb-346bfa90e96d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5536a31-c2a2-430d-95d9-660bd4b5320e"",
+                    ""path"": ""<Joystick>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51ac4a74-1ada-4b1e-838c-605e822e5c02"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58d4b6e7-82d2-4552-8cfb-bd7c60127995"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vaia"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fbebb3b-8f2c-45fa-af3c-d6aa24512001"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vaia"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -102,6 +184,8 @@ public class @MC : IInputActionCollection, IDisposable
         // Reporter
         m_Reporter = asset.FindActionMap("Reporter", throwIfNotFound: true);
         m_Reporter_Move = m_Reporter.FindAction("Move", throwIfNotFound: true);
+        m_Reporter_Trap = m_Reporter.FindAction("Trap", throwIfNotFound: true);
+        m_Reporter_Vaia = m_Reporter.FindAction("Vaia", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -152,11 +236,15 @@ public class @MC : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Reporter;
     private IReporterActions m_ReporterActionsCallbackInterface;
     private readonly InputAction m_Reporter_Move;
+    private readonly InputAction m_Reporter_Trap;
+    private readonly InputAction m_Reporter_Vaia;
     public struct ReporterActions
     {
         private @MC m_Wrapper;
         public ReporterActions(@MC wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Reporter_Move;
+        public InputAction @Trap => m_Wrapper.m_Reporter_Trap;
+        public InputAction @Vaia => m_Wrapper.m_Reporter_Vaia;
         public InputActionMap Get() { return m_Wrapper.m_Reporter; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -169,6 +257,12 @@ public class @MC : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_ReporterActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_ReporterActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_ReporterActionsCallbackInterface.OnMove;
+                @Trap.started -= m_Wrapper.m_ReporterActionsCallbackInterface.OnTrap;
+                @Trap.performed -= m_Wrapper.m_ReporterActionsCallbackInterface.OnTrap;
+                @Trap.canceled -= m_Wrapper.m_ReporterActionsCallbackInterface.OnTrap;
+                @Vaia.started -= m_Wrapper.m_ReporterActionsCallbackInterface.OnVaia;
+                @Vaia.performed -= m_Wrapper.m_ReporterActionsCallbackInterface.OnVaia;
+                @Vaia.canceled -= m_Wrapper.m_ReporterActionsCallbackInterface.OnVaia;
             }
             m_Wrapper.m_ReporterActionsCallbackInterface = instance;
             if (instance != null)
@@ -176,6 +270,12 @@ public class @MC : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Trap.started += instance.OnTrap;
+                @Trap.performed += instance.OnTrap;
+                @Trap.canceled += instance.OnTrap;
+                @Vaia.started += instance.OnVaia;
+                @Vaia.performed += instance.OnVaia;
+                @Vaia.canceled += instance.OnVaia;
             }
         }
     }
@@ -183,5 +283,7 @@ public class @MC : IInputActionCollection, IDisposable
     public interface IReporterActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnTrap(InputAction.CallbackContext context);
+        void OnVaia(InputAction.CallbackContext context);
     }
 }

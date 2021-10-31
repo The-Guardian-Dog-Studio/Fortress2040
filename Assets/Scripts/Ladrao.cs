@@ -6,8 +6,7 @@ using UnityEngine;
 public class Ladrao : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    [SerializeField]
-    protected float _speed = 7.5f;
+    public float speed = 7.5f;
     [SerializeField]
     protected Vector3 _direction;
     [SerializeField]
@@ -26,17 +25,25 @@ public class Ladrao : MonoBehaviour
     // Update is called once per frame
     virtual protected void FixedUpdate()
     {
-        switch (_type) {
-            case LadraoType.BOBO:
-                //That's all folks
-                break;
-            case LadraoType.USUAL:
-                break;
-            case LadraoType.ASTUTO:
-                break;
+        if (speed != 0)
+        {
+            switch (_type)
+            {
+                case LadraoType.BOBO:
+                    //That's all folks
+                    break;
+                case LadraoType.USUAL:
+                    break;
+                case LadraoType.ASTUTO:
+                    break;
+            }
+            GetRigidbody.MovePosition(GetRigidbody.position + transform.TransformDirection(GetDirection * Time.fixedDeltaTime * speed));
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        } else
+        {
+            transform.localPosition = Vector3.zero;
         }
-        GetRigidbody.MovePosition(GetRigidbody.position + transform.TransformDirection(GetDirection * Time.fixedDeltaTime * _speed));
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        if (transform.position.y < -50) Destroy(gameObject);
     }
 
 
