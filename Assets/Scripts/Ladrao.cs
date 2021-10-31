@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Ladrao : MonoBehaviour
@@ -44,6 +45,7 @@ public class Ladrao : MonoBehaviour
             transform.localPosition = Vector3.zero;
         }
         if (transform.position.y < -50) Destroy(gameObject);
+        if (transform.position.x < -100) SceneManager.LoadScene(1);
     }
 
 
