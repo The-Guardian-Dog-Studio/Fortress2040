@@ -8,7 +8,7 @@ public class AnimatedUVs : MonoBehaviour
     public string textureName = "_MainTex";
     public Texture2D texture;
 
-    Vector2 uvOffset = Vector2.zero;
+    public Vector2 uvOffset = Vector2.zero;
 
     void Start()
     {
